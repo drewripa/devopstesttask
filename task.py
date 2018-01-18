@@ -18,6 +18,8 @@ print(serverIPs)
 
 #Step 2:
 #Get access to our EC2 instances via awscli (using boto3 lib) and get all needed info
+#TCP check = 22 port
+#HTTP ckeck = 80 port
 ec2 = boto3.resource('ec2')
 complexInstanceInfo=[]
 
@@ -34,7 +36,6 @@ for instance in instances:
                                 serverNames[serverIPs.index(instance.public_ip_address)],
                                 instance.state['Name'],
                                (isopen(instance.public_ip_address, 80)),
-                               (isopen(instance.public_ip_address, 22)),
-                               (isopen(instance.public_ip_address, 666))])
+                               (isopen(instance.public_ip_address, 22))])
 #TODO: Remove line
 print(complexInstanceInfo)
