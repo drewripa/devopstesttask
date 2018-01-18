@@ -23,6 +23,8 @@ instances = ec2.instances.filter(
         }
     ])
 for instance in instances:
-    complexInstanceInfo.append(['instance.id', 'instance.public_ip_address', serverNames[instance.public_ip_address]])
+    complexInstanceInfo.append(['instance.id',
+                                'instance.public_ip_address',
+                                serverNames[serverIPs.index(instance.public_ip_address)]])
 #TODO: Remove line
 print(complexInstanceInfo)
