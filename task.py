@@ -3,7 +3,7 @@ import socket
 
 #Step 1:
 #Resolve IP addresses for our DNS names
-serverNames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga']
+serverNames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga', 'wrong.drewripa.ga']
 serverIPs = []
 for serverName in serverNames:
     serverIPs.append(socket.gethostbyname(serverName))
