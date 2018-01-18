@@ -34,6 +34,7 @@ for instance in instances:
                                 serverNames[serverIPs.index(instance.public_ip_address)],
                                 instance.state['Name'],
                                (isopen(instance.public_ip_address, 80)),
-                               (isopen(instance.public_ip_address, 22))])
+                               (isopen(instance.public_ip_address, 22)),
+                               (isopen(instance.public_ip_address, 666))])
 #TODO: Remove line
 print(complexInstanceInfo)
