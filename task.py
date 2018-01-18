@@ -7,6 +7,7 @@ def isopen(ip, port):
    try:
       s.connect((ip, int(port)))
       s.shutdown(2)
+      s.close()
       return True
    except:
       return False
