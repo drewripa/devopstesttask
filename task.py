@@ -60,5 +60,5 @@ for instanceInfo in complexInstanceInfo:
                 Description="%s %s" % (instanceInfo[1], datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
                 NoReboot = True
             )
-        except:
-            print("Ooops")
+        except Exception, e:
+            print(str(e))
