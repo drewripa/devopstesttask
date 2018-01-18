@@ -32,6 +32,7 @@ instances = ec2.instances.filter(
     ])
 for instance in instances:
     complexInstanceInfo.append([instance.id,
+                                instance.tags['Name'],
                                 instance.public_ip_address,
                                 serverNames[serverIPs.index(instance.public_ip_address)],
                                 instance.state['Name'],
@@ -39,3 +40,12 @@ for instance in instances:
                                (isopen(instance.public_ip_address, 22))])
 #TODO: Remove line
 print(complexInstanceInfo)
+
+#Step 3:
+#AMI creation
+#for instanceInfo in complexInstanceInfo:
+#    if instanceInfo[4] == 'Stopped':
+#        instance = ec2.Instance(instanceInfo[0])
+#        image = instance.create_image(
+#
+#        )
