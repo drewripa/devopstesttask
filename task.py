@@ -4,13 +4,8 @@ import socket
 
 def isopen(ip, port):
    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-   try:
-      s.connect((ip, int(port)))
-      s.shutdown(2)
-      s.close()
-      return True
-   except:
-      return False
+
+   return 0 if s.connect_ex((ip, int(port)))==0 else 1
 
 #Step 1:
 #Resolve IP addresses for our DNS names
