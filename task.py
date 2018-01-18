@@ -51,7 +51,7 @@ print(complexInstanceInfo)
 #AMI creation
 for instanceInfo in complexInstanceInfo:
     print(instanceInfo[4])
-    if instanceInfo[4] == 'Stopped':
+    if instanceInfo[4] == 'stopped':
         try :
             instance = ec2.Instance(instanceInfo[0])
             image = instance.create_image(
