@@ -1,6 +1,16 @@
 import boto3
 import socket
 
+
+def isopen(ip, port):
+   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   try:
+      s.connect((ip, int(port)))
+      s.shutdown(2)
+      return True
+   except:
+      return False
+
 #Step 1:
 #Resolve IP addresses for our DNS names
 serverNames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga']
@@ -11,7 +21,7 @@ for serverName in serverNames:
 print(serverIPs)
 
 #Step 2:
-#Get access to our EC2 instances via awscli (using boto3 lib)
+#Get access to our EC2 instances via awscli (using boto3 lib) and get all needed info
 ec2 = boto3.resource('ec2')
 complexInstanceInfo=[]
 
@@ -26,6 +36,8 @@ for instance in instances:
     complexInstanceInfo.append([instance.id,
                                 instance.public_ip_address,
                                 serverNames[serverIPs.index(instance.public_ip_address)],
-                                instance.state['Name']])
+                                instance.state['Name'],
+                               (isopen(instance.public_ip_address, 80)),
+                               (isopen(instance.public_ip_address, 22))])
 #TODO: Remove line
 print(complexInstanceInfo)
