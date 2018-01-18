@@ -50,6 +50,7 @@ print(complexInstanceInfo)
 #Step 3:
 #AMI creation
 for instanceInfo in complexInstanceInfo:
+    print(instanceInfo[4])
     if instanceInfo[4] == 'Stopped':
         try :
             instance = ec2.Instance(instanceInfo[0])
