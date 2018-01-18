@@ -1,6 +1,7 @@
 import boto3
 import socket
-from datetime import datetime, time
+import time
+from datetime import datetime
 
 
 def isopen(ip, port):
