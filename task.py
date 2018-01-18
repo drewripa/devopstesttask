@@ -54,7 +54,7 @@ for instance in instances:
 print(complexInstanceInfo)
 print(
     "=================================================================================================\n"
-    "| Instances information checked                                                                  |\n"
+    "| Instances information checked                                                                 |\n"
     "================================================================================================="
 )
 
@@ -98,6 +98,7 @@ for instanceInfo in complexInstanceInfo:
                 time.sleep(5)
                 timer+=5
                 print("| %s seconds passed" % timer)
+                instance.load()
             print(
                 "=================================================================================================\n"
                 "| Stopped instance terminated successfully                                                      |\n"
