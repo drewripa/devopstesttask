@@ -1,6 +1,6 @@
 import boto3
 import socket
-from datetime import datetime
+from datetime import datetime, time
 
 
 def isopen(ip, port):
@@ -16,6 +16,11 @@ for serverName in serverNames:
     serverIPs.append(socket.gethostbyname(serverName))
 #TODO: Remove line
 print(serverIPs)
+print(
+    "=================================================================================================\n"
+    "| Servers IP addresses checked                                                                  |\n"
+    "================================================================================================="
+)
 
 #Step 2:
 #Get access to our EC2 instances via awscli (using boto3 lib) and get all needed info
@@ -46,19 +51,56 @@ for instance in instances:
                                (isopen(instance.public_ip_address, 22))])
 #TODO: Remove line
 print(complexInstanceInfo)
+print(
+    "=================================================================================================\n"
+    "| Instances information checked                                                                  |\n"
+    "================================================================================================="
+)
 
 #Step 3:
 #AMI creation
 for instanceInfo in complexInstanceInfo:
     print(instanceInfo[4])
     if instanceInfo[4] == 'stopped':
-        try :
-            print('try')
+        try:
             instance = ec2.Instance(instanceInfo[0])
             image = instance.create_image(
                 Name=instanceInfo[1]+"-ami",
                 Description="%s %s" % (instanceInfo[1], datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
                 NoReboot = True
+            )
+            print(
+                "=================================================================================================\n"
+                "| AMI creation started. Waiting for finishing                                                   |\n"
+                "================================================================================================="
+            )
+            timer = 0
+            while image.state == 'pending':
+                time.sleep(5)
+                timer+=5
+                print("| %s seconds passed" % timer)
+                image.update()
+            if image.state == 'available':
+                print(
+                    "=================================================================================================\n"
+                    "| AMI creation successfully finished                                                            |\n"
+                    "================================================================================================="
+                )
+                timer = 0
+            instance.terminate()
+            print(
+                "=================================================================================================\n"
+                "| Stopped instance termination started                                                          |\n"
+                "================================================================================================="
+            )
+            while instance.state != 'terminated':
+                time.sleep(5)
+                timer+=5
+                print("| %s seconds passed" % timer)
+            print(
+                "=================================================================================================\n"
+                "| Stopped instance terminated successfully                                                      |\n"
+                "================================================================================================="
             )
         except Exception, e:
             print(str(e))
