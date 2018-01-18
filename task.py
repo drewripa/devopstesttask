@@ -1,5 +1,6 @@
 import boto3
 import socket
+from datetime import datetime
 
 
 def isopen(ip, port):
@@ -48,9 +49,14 @@ print(complexInstanceInfo)
 
 #Step 3:
 #AMI creation
-#for instanceInfo in complexInstanceInfo:
-#    if instanceInfo[4] == 'Stopped':
-#        instance = ec2.Instance(instanceInfo[0])
-#        image = instance.create_image(
-#
-#        )
+for instanceInfo in complexInstanceInfo:
+    if instanceInfo[4] == 'Stopped':
+        try :
+            instance = ec2.Instance(instanceInfo[0])
+            image = instance.create_image(
+                Name=instanceInfo[1]+"-ami",
+                Description="%s %s" % (instanceInfo[1], datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+                NoReboot = True
+            )
+        except:
+            print("Ooops")
