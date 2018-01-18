@@ -80,7 +80,7 @@ for instanceInfo in complexInstanceInfo:
                 time.sleep(5)
                 timer+=5
                 print("| %s seconds passed" % timer)
-                image.update()
+                image.load()
             if image.state == 'available':
                 print(
                     "=================================================================================================\n"
