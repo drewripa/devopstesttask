@@ -31,9 +31,7 @@ instances = ec2.instances.filter(
         }
     ])
 for instance in instances:
-    instanceName=''
-    if 'Name' in instance.tags:
-        instanceName = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name']
+    instanceName = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name']
     complexInstanceInfo.append([instance.id,
                                instanceName,
                                instance.public_ip_address,
