@@ -3,7 +3,7 @@ import socket
 
 #Step 1:
 #Resolve IP addresses for our DNS names
-serverNames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga', 'wrong.drewripa.ga']
+serverNames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga']
 serverIPs = []
 for serverName in serverNames:
     serverIPs.append(socket.gethostbyname(serverName))
@@ -25,6 +25,7 @@ instances = ec2.instances.filter(
 for instance in instances:
     complexInstanceInfo.append([instance.id,
                                 instance.public_ip_address,
-                                serverNames[serverIPs.index(instance.public_ip_address)]])
+                                serverNames[serverIPs.index(instance.public_ip_address)],
+                                instance.state['Name']])
 #TODO: Remove line
 print(complexInstanceInfo)
