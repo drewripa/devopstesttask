@@ -2,16 +2,18 @@ import boto3
 import socket
 
 servernames = ['one.drewripa.ga', 'two.drewripa.ga', 'three.drewripa.ga']
+servernamesIP = []
 for servername in servernames:
-    print(socket.gethostbyname(servername))
+    servernamesIP.append(socket.gethostbyname(servername))
+print(servernamesIP)
 
 ec2 = boto3.resource('ec2')
 
 instances = ec2.instances.filter(
     Filters=[
         {
-            'Name': 'instance-state-name',
-            'Values': ['running']
+            'Name': 'ip-address',
+            'Values': servernamesIP
         }
     ])
 for instance in instances:
