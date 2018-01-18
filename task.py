@@ -53,6 +53,7 @@ for instanceInfo in complexInstanceInfo:
     print(instanceInfo[4])
     if instanceInfo[4] == 'stopped':
         try :
+            print('try')
             instance = ec2.Instance(instanceInfo[0])
             image = instance.create_image(
                 Name=instanceInfo[1]+"-ami",
