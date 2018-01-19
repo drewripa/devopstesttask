@@ -22,7 +22,7 @@ def printInstanceInfo(instanceID,
                       instance22):
     print(
         "| %s | %s | %s | %s | %s | %s |\n" 
-        "=================================================================================================="
+        "================================================================================================="
         % (instanceID,
            nameCutter(instanceName, 17),
            nameCutter(instanceInetName, 17),
@@ -238,7 +238,12 @@ print(
 #TCP check = 22 port
 #HTTP ckeck = 80 port
 complexInstanceInfo, ec2 = getComplexInfoByIPs(serverIPs)
+#dummy list
 serverIDs = []
+c = 0
+while c < len(serverIPs):
+    serverIDs.append('')
+    c+=1
 for instance in complexInstanceInfo:
     serverIDs[serverIPs.index(instance[2])] = instance[0]
 
