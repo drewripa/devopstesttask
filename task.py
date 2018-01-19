@@ -75,25 +75,25 @@ def instanceAMIcreate(instanceComplexInfo, ec2Context):
 
 def instanceTermination(instanceID, ec2Context):
     try:
-        instance = ec2Context.Instance(instanceID)
-        instance.terminate()
+        instanceterm = ec2Context.Instance(instanceID)
+        instanceterm.terminate()
         print(
             "=================================================================================================\n"
             "| Stopped instance termination started                                                          |\n"
             "================================================================================================="
         )
         timer = 0
-        while instance.state != 'terminated':
+        while instanceterm.state['Name'] != 'terminated':
             time.sleep(1)
             timer += 1
             print("| %s seconds passed" % timer)
-            instance.load()
+            instanceterm.load()
         print(
             "=================================================================================================\n"
             "| Stopped instance terminated successfully                                                      |\n"
             "================================================================================================="
         )
-        return instance.placement['AvailabilityZone']
+        return instanceterm.placement['AvailabilityZone']
     except Exception, e:
         print(str(e))
         return ''
