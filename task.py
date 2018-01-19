@@ -93,7 +93,7 @@ def instanceTermination(instanceID, ec2Context):
             "| Stopped instance terminated successfully                                                      |\n"
             "================================================================================================="
         )
-        return instanceterm.placement['AvailabilityZone']
+        return instanceterm.placement['AvailabilityZone'], ec2Context
     except Exception, e:
         print(str(e))
         return ''
@@ -194,14 +194,13 @@ def getComplexInfoByIDs(instanceIDs):
     )
 
 
-def cleanOldAMI(region):
+def cleanOldAMI(ec2Context):
     try:
         print(
             "=================================================================================================\n"
             "| Deregistration of old AMIs started                                                            |\n"
             "================================================================================================="
         )
-        ec2Context = boto3.resource("ec2", region_name=region)
         images = ec2Context.images.filter(
             Owners=['self']
         )
@@ -254,12 +253,12 @@ instanceID = instanceAMIcreate(complexInstanceInfo,ec2)
 #Stopped instance termination
 region = ''
 if instanceID != '':
-    region = instanceTermination(instanceID, ec2)
+    region, ec2 = instanceTermination(instanceID, ec2)
 
 #Step 5:
 #Clean AMI older ten 1 week in terminated instance region
 if region != '':
-    cleanOldAMI(region)
+    cleanOldAMI(ec2)
 
 #Step 6:
 #All instances info for this lines execution time
