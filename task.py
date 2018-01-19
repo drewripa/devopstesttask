@@ -58,8 +58,8 @@ def instanceAMIcreate(instanceComplexInfo, ec2Context):
                 )
                 timer = 0
                 while image.state == 'pending':
-                    time.sleep(5)
-                    timer += 5
+                    time.sleep(1)
+                    timer += 1
                     print("| %s seconds passed" % timer)
                     image.load()
                 if image.state == 'available':
@@ -84,8 +84,8 @@ def instanceTermination(instanceID, ec2Context):
         )
         timer = 0
         while instance.state != 'terminated':
-            time.sleep(5)
-            timer += 5
+            time.sleep(1)
+            timer += 1
             print("| %s seconds passed" % timer)
             instance.load()
         print(
