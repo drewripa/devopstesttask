@@ -27,8 +27,8 @@ def printInstanceInfo(instanceID,
            nameCutter(instanceName, 17),
            nameCutter(instanceInetName, 17),
            nameCutter(instanceState, 10),
-           nameCutter(instance80, 7),
-           nameCutter(instance22, 8))
+           nameCutter(instance22, 7),
+           nameCutter(instance80, 8))
     )
 
 def nameCutter(strName, letCount):
@@ -123,8 +123,8 @@ def getComplexInfoByIPs(serverIPs):
         instancePublicIP = instance.public_ip_address
         instanceInetName = serverNames[serverIPs.index(instancePublicIP)]
         instanceState = instance.state['Name']
-        instance80 = isopen(instance.public_ip_address, 80)
-        instance22 =isopen(instance.public_ip_address, 22)
+        instance22 = isopen(instance.public_ip_address, 22) if instanceState != 'terminated' else '-'
+        instance80 =isopen(instance.public_ip_address, 80) if instanceState != 'terminated' else '-'
         complexInstanceInfo.append([instanceID,
                                     instanceName,
                                     instancePublicIP,
@@ -137,8 +137,8 @@ def getComplexInfoByIPs(serverIPs):
             instanceName,
             instanceInetName,
             instanceState,
-            instance80,
-            instance22
+            instance22,
+            instance80
         )
     print(
         "=================================================================================================\n"
@@ -171,8 +171,8 @@ def getComplexInfoByIDs(instanceIDs):
         instanceID = instance.id
         instanceInetName = serverNames[serverIDs.index(instanceID)]
         instanceState = instance.state['Name']
-        instance80 = isopen(instance.public_ip_address, 80)
-        instance22 =isopen(instance.public_ip_address, 22)
+        instance22 = isopen(instance.public_ip_address, 22) if instanceState != 'terminated' else '-'
+        instance80 = isopen(instance.public_ip_address, 80) if instanceState != 'terminated' else '-'
         complexInstanceInfo.append([instanceID,
                                     instanceName,
                                     instanceInetName,
@@ -184,8 +184,8 @@ def getComplexInfoByIDs(instanceIDs):
             instanceName,
             instanceInetName,
             instanceState,
-            instance80,
-            instance22
+            instance22,
+            instance80
         )
     print(
         "=================================================================================================\n"
